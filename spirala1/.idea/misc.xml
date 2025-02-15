@@ -3,8 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/almaf/AndroidStudioProjects/spirala1/app/src/main/res/layout/activity_main.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/almaf/AndroidStudioProjects/spirala1/app/src/main/res/drawable/edit_layout_border.xml" value="0.1205" />
+        <entry key="..\:/Users/almaf/AndroidStudioProjects/spirala1/app/src/main/res/drawable/edit_text_border.xml" value="0.2115" />
+        <entry key="..\:/Users/almaf/AndroidStudioProjects/spirala1/app/src/main/res/drawable/line.xml" value="0.2" />
+        <entry key="..\:/Users/almaf/AndroidStudioProjects/spirala1/app/src/main/res/drawable/progress_design.xml" value="0.1205" />
+        <entry key="..\:/Users/almaf/AndroidStudioProjects/spirala1/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/almaf/AndroidStudioProjects/spirala1/app/src/main/res/layout/activity_upis_istrazivanje.xml" value="0.14" />
         <entry key="..\:/Users/almaf/AndroidStudioProjects/spirala1/app/src/main/res/layout/element_list.xml" value="0.12" />
+        <entry key="..\:/Users/almaf/AndroidStudioProjects/spirala1/app/src/main/res/layout/item_anketa.xml" value="0.5" />
       </map>
     </option>
   </component>

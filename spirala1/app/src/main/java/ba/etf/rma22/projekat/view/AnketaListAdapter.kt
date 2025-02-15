@@ -8,12 +8,10 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ba.etf.rma22.projekat.R
-import ba.etf.rma22.projekat.data.Anketa
-import java.text.SimpleDateFormat
+import ba.etf.rma22.projekat.data.models.Anketa
+import java.lang.Math.round
 import java.time.LocalDate
 import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-import java.util.*
 
 
 class AnketaListAdapter(
@@ -22,13 +20,14 @@ class AnketaListAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnketaViewHolder {
         val view = LayoutInflater
             .from(parent.context)
-            .inflate(R.layout.element_list, parent, false)
+            .inflate(R.layout.item_anketa, parent, false)
         return AnketaViewHolder(view)
     }
     override fun getItemCount(): Int = ankete.size
     override fun onBindViewHolder(holder: AnketaViewHolder, position: Int) {
         holder.nazivAnkete.text = ankete[position].naziv
         holder.nazivIstrazivanja.text = ankete[position].nazivIstrazivanja
+        holder.progres.progress = formatProgresa(ankete[position].progres)
 
         // datum kraja
         val day = ankete[position].datumKraj.day
@@ -42,14 +41,13 @@ class AnketaListAdapter(
         val currentDay = current.dayOfMonth
         val currentMonth = current.monthValue
         val currentYear = current.year
-        val currentDateString = "$currentDay.$currentMonth.$currentYear"
 
 
         //datum rada
         val dRada = ankete[position].datumRada
-        val danRada = ankete[position].datumKraj.day
-        val mjesecRada = ankete[position].datumKraj.month
-        val godinaRada = ankete[position].datumKraj.year
+        val danRada = ankete[position].datumRada?.day
+        val mjesecRada = ankete[position].datumRada?.month
+        val godinaRada = ankete[position].datumRada?.year
         val datumRadaString = "$danRada.$mjesecRada.$godinaRada"
 
         //datum pocetka
@@ -62,10 +60,10 @@ class AnketaListAdapter(
 
         val dE = LocalDate.of(year,month,day)
         val dC = LocalDate.of(currentYear,currentMonth,currentDay)
-        val dR = LocalDate.of(godinaRada,mjesecRada,danRada)
         val dP= LocalDate.of(godinaPocetka,mjesecPocetka,danPocetka)
 
-        if(dRada != null ){
+
+        if(dRada != null){
             holder.anketaAktivnost.setImageResource(R.drawable.plava)
             holder.datumKraja.text = "Anketa urađena: $datumRadaString"
         }
@@ -73,7 +71,7 @@ class AnketaListAdapter(
             holder.anketaAktivnost.setImageResource(R.drawable.crvena)
             holder.datumKraja.text = "Anketa zatvorena: $endDateString"
         }
-        else if(dPocetka != null && dC.isBefore(dP)){
+        else if(dC.isBefore(dP)){
             holder.anketaAktivnost.setImageResource(R.drawable.zuta)
             holder.datumKraja.text = "Vrijeme aktiviranja: $datumPocetkaString"
         }
@@ -94,10 +92,14 @@ class AnketaListAdapter(
         val nazivAnkete: TextView = itemView.findViewById(R.id.nazivAnkete)
         val nazivIstrazivanja: TextView = itemView.findViewById(R.id.nazivIstrazivanja)
         val progres: ProgressBar = itemView.findViewById(R.id.progresZavrsetka)
-
-
         val datumKraja: TextView = itemView.findViewById(R.id.datumKraja)
     }
 
+    fun formatProgresa(p:Double):Int{
+        var rez = (100 * p).toInt()
+        rez = rez - rez%10
+        if ((rez / 10)% 2 == 1) return rez+10
+        return rez
+    }
 
 }
